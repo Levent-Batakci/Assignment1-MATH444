@@ -1,0 +1,91 @@
+\documentclass{article}
+
+\usepackage[pctex32]{graphics}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+}
+\usepackage[left=3cm,top=2cm,right=3cm,nohead,nofoot]{geometry}
+\usepackage{latexsym}
+\usepackage{epsfig}
+\parindent0pt
+\parskip6pt
+\pagestyle{empty}
+%\pagestyle{empty}
+%\usepackage{fancybox}
+\usepackage{pstcol}
+\newcommand{\R}{{\mathbb R}}
+\title{Math 444: Project 1}
+\author{Levent Batakci}
+\date{February 21, 2021} %Due Date
+\begin{document}
+\maketitle
+
+The work in this project focuses on data visualization and basic clustering.
+All of the mentioned implementations are coded in MATLAB and can be found in my \href{https://github.com/Levent-Batakci/Assignment1-MATH444}{public GitHub Repository}. 
+
+\bigskip
+{\Large {\bf Problem 1 - Model Reduction Data}}
+\bigskip
+
+The first data set consisted of data vectors $x^{(j)} \in \mathbb{R}^6$, with $1 \leq j \leq 4000$. 
+The data is stored in the code as matrix $X\in \mathbb{R}^{6\times4000}$ and is loaded from the file \textit{ModelReductionData.mat}.
+As an assessment of the raw data, we produced 2D scatter plots (Figure 1) corresponding to each pairing of components.
+
+\textbf{INCLUDE FIG 1}
+
+It's clear from the plots that there is clustering within the data.
+Furthermore, there tentatively appear to be two clusters.
+
+Next, we determined the data's effective dimesionality.
+The first step I took was to center the data and then compute its Singular Value Decomposition (SVD).
+To compute the centered data $X_c$, we subtract the mean $\bar{x}=\frac{1}{4000}\sum_{j=1}^{4000}x^{(j)}$ from each column of $X$.
+The following code snippet performs these steps in MATLAB.
+\begin{verbatim}
+%Center the data
+N = size(X,2);
+xc = sum(X, 2)/N; %Get the average
+Xc = X -  xc*ones(1,N); %Subtract out the average
+
+[U,S,V] = svd(Xc, 'eco'); %Compute the SVD
+\end{verbatim}
+
+Once the SVD was computed, the singular values were extracted and plotted.
+The resulting plot (Figure 2) shows that the first three singular values are significantly larger than the rest.
+This leads to the conclusion that $X$ has an effective dimensionality of 3.
+
+\textbf{INCLUDE FIG 2}
+
+From there, we computed the matrix $Z_3$ of the first 3 principal components.
+To do so, we used the first 3 feature vectors $u_1, u_2,$ and $u_3$ -- which are the first 3 three columns of the matrix $U$ from the SVD.
+Specifically, we computed $Z_3 = U_3^TX$ where $U_3 = [u_1\;u_2\;u_3]$ in MATLAB.
+\begin{verbatim}
+U3 = U(:, 1:3)'; %Get the first 3 feature vectors
+Z3 = U3 * Xc; %Project to get the 3 principal components
+\end{verbatim}
+ 
+After that, we compared the first three principal components with 2D scatter plots and a 3D scatter plot (figure 3).
+From these graphics, it is clear that there are two clusters within the data.
+
+\textbf{INCLUDE FIG 3}
+ 
+\bigskip
+{\Large {\bf Problem 2 - Biopsy Data}}
+\bigskip
+
+
+\bigskip
+{\Large {\bf Problem 3 - Iris Data}}
+\bigskip
+
+
+\bigskip
+{\Large {\bf Problem 4 - Aligned Face Data}}
+\bigskip
+
+
+\end{document}
