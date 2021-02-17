@@ -43,12 +43,10 @@ sgtitle("Figure 1: Raw Data Components Compared") %MAKE THIS PLOT PRETTIER !!!!
 %Then, the singular values are plotted to determine the effective
 %dimensionality of the data
 
-%Get the average of the data
-N = size(X,2);
-xc = sum(X, 2)/N; 
-
 %Center the data
-Xc = X -  xc*ones(1,N);
+N = size(X,2);
+xc = sum(X, 2)/N; %Get the average
+Xc = X -  xc*ones(1,N); %Subtract out the average
 
 [U,S,V] = svd(Xc); %Compute the SVD
 
@@ -56,37 +54,36 @@ Xc = X -  xc*ones(1,N);
 singular_values = diag(S); %Extract the singular values
 figure(2);
 subplot(1, 1, 1); %Make the plot into 1 large one
-plot(1:size(Xc,1), singular_values, 'k.','MarkerSize', 20, 'Color', 'b')
+plot(1:size(Xc,1), singular_values, 'k.','MarkerSize', 45, 'Color', 'b')
+set(gca,'FontSize',20)
 
 %Set up the x-axis
-xlbl = append("\fontsize{15}1", "\leq j \leq", string(size(Xc,1)));
+xlbl = append("\fontsize{30}1", "\leq j \leq", string(size(Xc,1)));
 xlabel(xlbl, 'interpreter','tex');
 xticks(1:size(Xc,1));
 
 %Set up the y-axis
-ylbl = "\fontsize{15}Singular Value   \sigma_j";%Label y
+ylbl = "\fontsize{30}Singular Value   \sigma_j";%Label y
 ylabel(ylbl, 'interpreter','tex');
 sgtitle("Figure 2: Centered Data Singular Values");
 
-%THE RESULTING PLOT MAKES IT CLEAR THAT THE DATA HAS EFFECTIVE
+%THE RESULTING PLOT MAKES IT CLEAR THAT THE DATA HAS EFFECTIVELY
 % % % % % 3 DIMENSIONS % % % % %
 %From here, it remains to check how many distinct data clumps there are.
 %To do this, we will project the data onto u1, u2, and u3 and plot the
 %data in 3-space
-Uk = U(:, 1:3)';
-
-%Project to get the 3 principal components
-X3 = Uk * Xc;
+U3 = U(:, 1:3)'; %Get the first 3 feature vectors
+Z3 = U3 * Xc; %Project to get the 3 principal components
 
 %Look at the principal components in pairs
 figure(3);
-c = size(X3,1); %Number of components
+c = size(Z3,1); %Number of components
 sbplt_index=1;
 for i = 1:c
    for j= i+1:c 
        subplot(2, 2, sbplt_index)
        sbplt_index = sbplt_index + 1;
-       plot(X3(i,:),X3(j,:),'k.','MarkerSize',3)
+       plot(Z3(i,:),Z3(j,:),'k.','MarkerSize',3)
        axis('equal')
        set(gca,'FontSize',15)
        
@@ -99,7 +96,7 @@ end
 %Look at the 3D Scatterplot
 s = 15; %Marker size
 subplot(2, 2, 4)
-scatter3(X3(1,:),X3(2,:),X3(3,:), s, 'o', 'MarkerEdgeColor','k', 'MarkerFaceColor','b')
+scatter3(Z3(1,:),Z3(2,:),Z3(3,:), s, 'o', 'MarkerEdgeColor','k', 'MarkerFaceColor','b')
 xlabel("PC 1")
 ylabel("PC 2")
 zlabel("PC 3")
