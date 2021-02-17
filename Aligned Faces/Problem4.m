@@ -65,6 +65,7 @@ label = ["sad" "surprised" "happy" "sleepy" "wink"];
 % end
 
 % Write to the GIF File
+%WILL BE AVAILABLE THROUGH LINK ON README
 % for k = 1:165
 %     filename = "animation\frame " + string(k) + ".png";
 %     im = imread(filename);
