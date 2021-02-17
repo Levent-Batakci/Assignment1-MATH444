@@ -16,9 +16,7 @@ load ModelReductionData
 %In this part, the data will be visualized by plotting the components
 %of the data (one pair at a time) against each other
 %Since there are 6 components, there will be (6 choose 2)=15 plots
-
-colors = ["Blue","Green","Red","Purple","Black","Yellow"];
-colors = ["Black","Black","Black","Black","Black","Black"];
+colors = [[0, 0.4470, 0.7410]; [0, 0.5, 0]; [1, 0, 0]; [0.8500, 0.3250, 0.0980]; [0, 0.75, 0.75]; [0.6350, 0.0780, 0.1840]];
 
 c = size(X,1); %Number of components
 sbplt_index=1;
@@ -29,13 +27,13 @@ for i = 1:c
        sbplt_index = sbplt_index + 1;
        plot(X(i,:),X(j,:),'k.','MarkerSize',3)
        axis('equal')
-       set(gca,'FontSize',10)
+       set(gca,'FontSize',23)
        
-       xlabel(append("Component ", string(i)))
-       ylabel(append("Component ", string(j)))
+       xlabel(append("Component ", string(i)), 'Color', colors(i,:))
+       ylabel(append("Component ", string(j)), 'Color', 'k')
    end
 end
-sgtitle("Figure 1: Raw Data Components Compared") %MAKE THIS PLOT PRETTIER !!!!
+sgtitle("Figure 1: Raw Data Components Compared", 'FontSize', 30) %MAKE THIS PLOT PRETTIER !!!!
 
 
 %PART b
