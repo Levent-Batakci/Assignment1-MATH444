@@ -48,7 +48,7 @@ N = size(X,2);
 xc = sum(X, 2)/N; %Get the average
 Xc = X -  xc*ones(1,N); %Subtract out the average
 
-[U,S,V] = svd(Xc); %Compute the SVD
+[U,S,V] = svd(Xc, 'eco'); %Compute the SVD
 
 %Plot the singular values
 singular_values = diag(S); %Extract the singular values
@@ -86,7 +86,6 @@ for i = 1:c
        plot(Z3(i,:),Z3(j,:),'k.','MarkerSize',3)
        axis('equal')
        set(gca,'FontSize',15)
-       
        
        xlabel(append("PC ", string(i)))
        ylabel(append("PC ", string(j)))
