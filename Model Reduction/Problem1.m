@@ -53,17 +53,17 @@ singular_values = diag(S); %Extract the singular values
 figure(2);
 subplot(1, 1, 1); %Make the plot into 1 large one
 plot(1:size(Xc,1), singular_values, 'k.','MarkerSize', 45, 'Color', 'b')
-set(gca,'FontSize',20)
+set(gca,'FontSize',25)
 
 %Set up the x-axis
-xlbl = append("\fontsize{30}1", "\leq j \leq", string(size(Xc,1)));
+xlbl = append("\fontsize{25}1", "\leq j \leq", string(size(Xc,1)));
 xlabel(xlbl, 'interpreter','tex');
 xticks(1:size(Xc,1));
 
 %Set up the y-axis
-ylbl = "\fontsize{30}Singular Value   \sigma_j";%Label y
+ylbl = "\fontsize{25}Singular Value   \sigma_j";%Label y
 ylabel(ylbl, 'interpreter','tex');
-sgtitle("Figure 2: Centered Data Singular Values");
+sgtitle("Figure 2: Centered Data Singular Values", 'FontSize', 20);
 
 %THE RESULTING PLOT MAKES IT CLEAR THAT THE DATA HAS EFFECTIVELY
 % % % % % 3 DIMENSIONS % % % % %
@@ -83,7 +83,7 @@ for i = 1:c
        sbplt_index = sbplt_index + 1;
        plot(Z3(i,:),Z3(j,:),'k.','MarkerSize',3)
        axis('equal')
-       set(gca,'FontSize',15)
+       set(gca,'FontSize',22)
        
        xlabel(append("PC ", string(i)))
        ylabel(append("PC ", string(j)))
@@ -97,7 +97,8 @@ scatter3(Z3(1,:),Z3(2,:),Z3(3,:), s, 'o', 'MarkerEdgeColor','k', 'MarkerFaceColo
 xlabel("PC 1")
 ylabel("PC 2")
 zlabel("PC 3")
-title("Principal Components 3D-Scatterplot")
+set(gca,'FontSize',22)
+title("Principal Components 3D-Scatterplot", 'FontSize', 20)
 
 sgtitle("Figure 3: Centered Data Principal Components (PC) Compared");
 
