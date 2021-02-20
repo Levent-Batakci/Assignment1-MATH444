@@ -13,3 +13,5 @@ Biopsy data: https://archive.ics.uci.edu/ml/datasets/breast+cancer+wisconsin+(or
 Iris data: https://archive.ics.uci.edu/ml/datasets/iris
 
 Face data: http://cvc.cs.yale.edu/cvc/projects/yalefaces/yalefaces.html
+
+Cool GIF: https://drive.google.com/file/d/13Cl2IfV2vI_Berq4nuWDOTeL9TdluElM/view?usp=sharing
