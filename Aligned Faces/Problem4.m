@@ -18,11 +18,6 @@ clear all
 % 9='Leftlight',10='Rightlight',11='Normal'
 load AlignedYaleFaces
 
-%Obtain an approximation for the images
-r = 50;
-[U,D,V] = svds(X, r);
-Xr = U * D * V';
-
 %Get an easy way to access the images belonging to a given category
 noGlasses = find(I==1);
 glasses = find(I==2);
@@ -35,6 +30,31 @@ centerlight = find(I==8);
 leftlight = find(I==9);
 rightlight = find(I==10);
 normal = find(I==11);
+
+%UNUSED, REMOVES OTHER CATEGORIES
+%X(:,[noGlasses glasses centerlight leftlight rightlight normal]) = [];
+
+%Plot SVs
+N=size(X,2)
+[Ux,Sx,Vx] = svd(X, 'eco'); %Compute the SVD
+figure(10)
+plot(1:165, log(diag(Sx)), 'k.','MarkerSize', 20, 'Color', 'b')
+%Set up the x-axis
+xlbl = append("\fontsize{25}1", "\leq j \leq", string(size(X,2)));
+xlabel(xlbl, 'interpreter','tex');
+
+%Set up the y-axis
+ylbl = "\fontsize{25}log(\sigma_j)";%Label y
+ylabel(ylbl, 'interpreter','tex');
+set(gca,'FontSize',22)
+keyboard()
+
+%Obtain an approximation for the images
+r = 50;
+[U,D,V] = svds(X, r);
+Xr = U * D * V';
+
+
 
 samples = [sad(1) surprised(1) happy(1) sleepy(1) wink(1)];
 label = ["sad" "surprised" "happy" "sleepy" "wink"];
@@ -87,14 +107,14 @@ for i = 1:5
     xlabel(label(i));
     xticks([])
     yticks([])
-    set(gca,'FontSize', 20)
+    set(gca,'FontSize', 40)
 
     subplot(2,5,i+5);
     imagesc(reshape(Xr(:,samples(1,i)), ImageSize));
     xlabel(label(i) + " approximation");
     xticks([])
     yticks([])
-    set(gca,'FontSize', 20)
+    set(gca,'FontSize', 25)
 end
 sgtitle("Original Images vs. those Achieved by a rank " + string(r) + " Approximation of the Data", 'FontSize', 30)
 
@@ -113,14 +133,14 @@ for i = 1:5
     xlabel("Feature Vector " + string(i));
     xticks([])
     yticks([])
-    set(gca,'FontSize', 20)
+    set(gca,'FontSize', 25)
 
     subplot(2,5,i+5);
     imagesc(reshape(U(:,i+5), ImageSize));
     xlabel("Feature Vector " + string(i+5));
     xticks([])
     yticks([])
-    set(gca,'FontSize', 20)
+    set(gca,'FontSize', 25)
 end
 sgtitle("First 10 Feature Vectors", 'FontSize', 30)
 
@@ -132,21 +152,20 @@ for j = 1:3
     k= K(j);
     Uk = U(:, 1:k);
     Xk = U(:, 1:k) * (Uk' * Xr); %Approximation by first k feature vectors
-    size(Xk)
     for i = 1:5
         subplot(2,5,i);
         imagesc(reshape(X(:,samples(1,i)), ImageSize));
         xlabel(label(i));
         xticks([])
         yticks([])
-        set(gca,'FontSize', 20)
+        set(gca,'FontSize', 40)
 
         subplot(2,5,i+5);
         imagesc(reshape(Xk(:,samples(1,i)), ImageSize));
         xlabel(label(i) + " approximation");
         xticks([])
         yticks([])
-        set(gca,'FontSize', 20)
+        set(gca,'FontSize', 25)
     end
     sgtitle("Original Images vs. those Approximated by the First " + string(k) + " Feature Vectors", 'FontSize', 30) 
 end

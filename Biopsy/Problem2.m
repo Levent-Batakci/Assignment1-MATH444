@@ -51,9 +51,9 @@ for i = 1:1
    for j= i+1:n 
        subplot(3, 3, sbplt_index)
        sbplt_index = sbplt_index + 1;
-       plot(Z(i,:),Z(j,:),'k.','MarkerSize',3)
+       plot(Z(i,:),Z(j,:),'k.','MarkerSize',8)
        axis('equal')
-       set(gca,'FontSize',15)
+       set(gca,'FontSize',25)
        
        xlabel(append("PC ", string(i)))
        ylabel(append("PC ", string(j)))
@@ -67,7 +67,8 @@ scatter3(Z(1,:), Z(2,:), Z(3,:), s, 'o', 'MarkerEdgeColor','k', 'MarkerFaceColor
 xlabel("PC 1")
 ylabel("PC 2")
 zlabel("PC 3")
-title("First 3 PC's 3D-Scatterplot")
+set(gca, 'FontSize', 25)
+title("First 3 PC's 3D-Scatterplot", 'FontSize', 25)
 
 sgtitle("Figure 2: Centered Data Principal Components (PC) Compared");
 
