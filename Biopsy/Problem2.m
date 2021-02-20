@@ -26,17 +26,18 @@ Xc = X - xc * ones(1, p);
 %Plot the singular values
 singular_values = diag(S); %Extract the singular values
 figure(1);
-plot(1:n, singular_values, 'k.','MarkerSize', 20, 'Color', 'b')
+plot(1:n, singular_values, 'k.','MarkerSize', 30, 'Color', 'b')
 
 %Set up the x-axis
-xlbl = append("\fontsize{15}1", "\leq j \leq", string(size(Xc,1)));
+xlbl = append("\fontsize{25}1", "\leq j \leq", string(size(Xc,1)));
 xlabel(xlbl, 'interpreter','tex');
 xticks(1:size(Xc,1));
 
 %Set up the y-axis
-ylbl = "\fontsize{15}Singular Value   \sigma_j";%Label y
+ylbl = "\fontsize{25}Singular Value   \sigma_j";%Label y
 ylabel(ylbl, 'interpreter','tex');
-sgtitle("Figure 1: Centered Data Singular Values");
+
+set(gca,'FontSize', 25)
 %%%%
 
 %Compute the principal components
@@ -70,6 +71,11 @@ title("First 3 PC's 3D-Scatterplot")
 
 sgtitle("Figure 2: Centered Data Principal Components (PC) Compared");
 
-
-
+%PLOT JUST FIRST PC
+figure(3)
+scatter(Z(1,:), zeros(size(Z(1,:))),500,'filled')
+ylim(gca, [-0.02 0.02])
+xlabel("PC 1")
+alpha(0.2)
+set(gca, 'FontSize', 30)
 
